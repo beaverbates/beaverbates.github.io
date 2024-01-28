@@ -9,8 +9,8 @@
 		<link rel="stylesheet" href="styles/conceptual_decoration_general.css">
 		<link rel="stylesheet" media="screen and (min-width: 1201px)" href="styles/conceptual_decoration_header.css">
 		<link rel="stylesheet" media="screen and (max-width: 1200px)" href="styles/conceptual_decoration_header_mobile.css">
-		<meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
-
+		<!-- <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' /> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <meta name="viewport" content="width=device-width" />
 	</head>
@@ -26,15 +26,18 @@
 	
 	</body>
 	
-	<script type="text/javascript">
-    		window.onorientationchange = function() { 
-        	var orientation = window.orientation; 
-           	 switch(orientation) { 
-                case 0:
-                case 90:
-                case -90: window.location.reload(); 
-                break; } 
-		};
-	</script>
+<script>
+    if (/(iPad|iPhone|iPod)/g.test(navigator.userAgent) && window.addEventListener && document.querySelector) {
+        window.addEventListener('orientationchange', rotateWithNoScale, false);
+    }
+    function rotateWithNoScale() {
+        var viewport = document.querySelector("meta[name=viewport]");
+        if (viewport) {
+            var content = viewport.getAttribute("content");
+            viewport.setAttribute("content", content + ", maximum-scale=1.0");
+            setTimeout(function () { viewport.setAttribute("content", content); }, 90);
+        }
+    }
+</script>
 
 </html>		
